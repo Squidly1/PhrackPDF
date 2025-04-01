@@ -1,18 +1,25 @@
 # PhrackPDF
-Snag the Phracks and mass convert them to PDFs.
+Snag the Phracks and mass convert them to PDFs.  The only requirement you need is to have **enscript** _already_ installed. Special note, this ran great on a couple of popular Linux distros but I ran into an issue attempting to run it in Cygwin, despite installing enscript in there as well )shrug(...
 
-# Grab all the .tar.gz files (issues 1 thru 70), each with the classic ASCII text files (71 was released as a nice PDF, so no need to convert it):
-for i in $(seq 1 70); do wget -c http://phrack.org/archives/tgz/phrack$i.tar.gz; done
+1. I created a dir named **Phracks**, changed into it and then grabbed all of the available .tar.gz issues (1 thru 70).  Each of the retrieved files holds the classic ASCII texts (71 was released as a nice PDF, so no need to convert it):
 
-# List just the names of the .tar.gz files:
-ls -1 *.tar.gz > list.txt
+<code>cd Phracks </code>
 
-# Use the new list of files to create individual dirs for each and ungz/tar everything in each separate dir:
-while IFS= read -r LINE; do nu=$(echo $LINE | awk -F. '{print $1}'); mkdir -p $nu; tar -xzf "$LINE" -C $nu; done < list.txt
+<code>for i in $(seq 1 70); do wget -c http://phrack.org/archives/tgz/phrack$i.tar.gz; done </code>
 
-# List the dirs, with full paths (since that was the 'easiest' way to get thie next while to work):
-readlink -f * | grep phrack > dir.txt
+2. List just the names of the **.tar.gz** files:
 
-# Add all the ASCII files in each separate dir into its own PhrackXX.pdf file, and show what files are done:
-while IFS= read -r LINE; do cd $LINE; echo $LINE; nunam=$(echo $LINE | awk -F\/ '{print $6}'); enscript -p *.txt -o - | ps2pdf - $nunam.pdf; ls -al $nunam.pdf; cd .. ; done < /home/squidly1/Desktop/Phracks/dir.txt
+<code>ls -1 *.tar.gz > list.txt </code>
+
+3. Use the new list of files to create individual dirs for each and unzip/tar'd everything, each in its own separate dir:
+
+<code>while IFS= read -r LINE; do nu=$(echo $LINE | awk -F. '{print $1}'); mkdir -p $nu; tar -xzf "$LINE" -C $nu; done < list.txt </code>
+
+4. Created a list of the files with their full paths (since that was the 'easiest' way to get thie next while loop to work, with all of the changing of directories):
+
+<code>readlink -f * | grep phrack > dir.txt </code>
+
+5. Add all the ASCII files in each separate dir into its own **phrackXX.pdf** file, and show what files are done:
+
+<code>while IFS= read -r LINE; do cd $LINE; echo $LINE; nunam=$(echo $LINE | awk -F\/ '{print $6}'); enscript -p *.txt -o - | ps2pdf - $nunam.pdf; ls -al $nunam.pdf; cd .. ; done < /home/squidly1/Phracks/dir.txt </code>
 
