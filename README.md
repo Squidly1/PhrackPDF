@@ -1,5 +1,7 @@
 # PhrackPDF
-Snag the Phracks and mass convert them to PDFs.  The only requirement you need is to have **enscript** _already_ installed. Special note, this ran great on a couple of popular Linux distros but I ran into an issue attempting to run it in Cygwin, despite installing enscript in there as well )shrug(...
+Original idea: https://github.com/enzolovesbacon
+
+Here's my crazy way, in bash, for snagging each Phrack magazine and then running a mass conversion to separate PDFs for each classic issue.  The only requirement you need is to have **enscript** _already_ installed on your Linux box.  Special note, this ran great on a couple of popular Linux distros... but I ran into an issue attempting to run it in Cygwin (Windows), despite installing enscript in Cygwin as well )shrug(...
 
 1. I created a dir named **Phracks**, changed into it and then grabbed all of the available .tar.gz issues (1 thru 70).  Each of the retrieved files holds the classic ASCII texts (71 was released as a nice PDF, so no need to convert it):
 
