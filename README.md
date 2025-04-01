@@ -21,7 +21,7 @@ Here's my crazy way, in bash, for snagging each Phrack magazine and then running
 
 <code>readlink -f * | grep phrack > dir.txt </code>
 
-5. Add all the ASCII files in each separate dir into its own **phrackXX.pdf** file, and show what files are done:
+5. Add all the ASCII files in each separate dir into its own **phrackXX.pdf** file, and show what files are done.  Of course, definitely change the **/home** directory to reflect your own setup:
 
 <code>while IFS= read -r LINE; do cd $LINE; echo $LINE; nunam=$(echo $LINE | awk -F\/ '{print $6}'); enscript -p *.txt -o - | ps2pdf - $nunam.pdf; ls -al $nunam.pdf; cd .. ; done < /home/squidly1/Phracks/dir.txt </code>
 
